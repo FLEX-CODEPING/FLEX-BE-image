@@ -42,7 +42,7 @@ expires = timedelta(seconds=3600)
 async def get_presigned_url(bucketName: str, fileName: str):
     """
     Presigned URL 생성
-    - bucketName: S3 버킷 이름
+    - bucketName: 버킷 이름, 블로그: dev-blog / 유저: dev-user
     - fileName: 원본 파일명
     """
     try:
