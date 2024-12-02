@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     minio_access_key: str
     minio_secret_key: str
     dev_blog_bucket: str
+    minio_secure: bool
 
     model_config = SettingsConfigDict(
         env_file="image-service.env",
