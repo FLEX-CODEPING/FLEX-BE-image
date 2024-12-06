@@ -7,10 +7,15 @@ class Settings(BaseSettings):
     app_name: str
     instance_host: str
     instance_port: int
+
     minio_host: str
     minio_access_key: str
     minio_secret_key: str
     dev_blog_bucket: str
+
+    redis_host: str
+    redis_port: int
+    redis_db: str
 
     model_config = SettingsConfigDict(
         env_file="image-service.env",
