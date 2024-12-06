@@ -10,7 +10,7 @@ minio_client = None
 def delete_image_from_minio(minio_client, image_url):
     blog_bucket_name = settings.blog_bucket
     try:
-        object_key = image_url.split('/')[-1]
+        object_key = "test"
         minio_client.remove_object(bucket_name=blog_bucket_name, object_name=object_key)
         print(f"Deleted image {object_key} from MinIO.")
     except Exception as e:

@@ -35,7 +35,7 @@ async def lifespan(app: FastAPI):
     async with eureka_lifespan(app): 
         scheduler.add_job(
             schedule_clean_inactive_images,
-            CronTrigger(hour=0, minute=0, timezone=timezone('Asia/Seoul')),
+            CronTrigger(minute='*', timezone=timezone('Asia/Seoul')),
             id='clean_inactive_images_job'
         )
     
