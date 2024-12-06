@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Body, Query
+from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.security import HTTPBearer
 from app.config.swagger_config import setup_swagger
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,6 +8,8 @@ from app.infra.minio_client import client
 from app.common.common_response import CommonResponseDto
 from minio.error import S3Error
 import uuid
+from app.infra.redis_config import *
+from urllib.parse import urlparse, urlunparse
 
 
 app = FastAPI(
@@ -51,6 +53,11 @@ async def get_presigned_url(bucketName: str, fileName: str):
         new_file_name = f"{unique_id}_{fileName}"
         
         presigned_url = client.presigned_put_object(bucketName, new_file_name, expires=expires)
+        parsed_url = urlparse(presigned_url)
+        image_url = urlunparse((parsed_url.scheme, parsed_url.netloc, parsed_url.path, '', '', ''))
+
+        redis = redis_client()
+        redis.set(image_url, "INACTIVE")
         
         return CommonResponseDto(result=presigned_url)
     except S3Error as err:
