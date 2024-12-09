@@ -6,7 +6,7 @@ import asyncio
 from pytz import timezone
 from app.config.eureka_client import eureka_lifespan 
 from app.infra.minio_client import get_minio_client
-from app.minio_image_scheduler import clean_inactive_images
+from app.service.minio_image_scheduler import clean_inactive_images
 scheduler = AsyncIOScheduler()
 redis_client = None 
 
@@ -18,7 +18,7 @@ import asyncio
 from pytz import timezone
 from app.config.eureka_client import eureka_lifespan 
 from app.infra.minio_client import get_minio_client
-from app.minio_image_scheduler import clean_inactive_images
+from app.service.minio_image_scheduler import clean_inactive_images
 
 scheduler = AsyncIOScheduler()
 redis_client = None 

@@ -8,7 +8,7 @@ from minio.error import S3Error
 import uuid
 from app.infra.redis_config import get_redis
 from urllib.parse import urlparse, urlunparse
-from app.minio_image_scheduler import *
+from app.service.minio_image_scheduler import *
 from app.lifespan import lifespan
 
 app = FastAPI(
