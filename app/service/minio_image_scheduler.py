@@ -1,16 +1,15 @@
 from app.config.app_config import settings
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-
+from urllib.parse import urlparse
 
 scheduler = AsyncIOScheduler()
 redis_client = None 
 minio_client = None
 
-
 def delete_image_from_minio(minio_client, image_url):
     blog_bucket_name = settings.blog_bucket
     try:
-        object_key = "test"
+        object_key =  urlparse(image_url).netloc
         minio_client.remove_object(bucket_name=blog_bucket_name, object_name=object_key)
         print(f"Deleted image {object_key} from MinIO.")
     except Exception as e:
