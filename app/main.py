@@ -10,6 +10,7 @@ from app.infra.redis_config import get_redis
 from urllib.parse import urlparse, urlunparse
 from app.service.minio_image_scheduler import *
 from app.lifespan import lifespan
+from app.config.swagger_config import setup_swagger
 
 app = FastAPI(
     lifespan=lifespan,
@@ -34,10 +35,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+setup_swagger(app)
 security = HTTPBearer()
 expires = timedelta(seconds=3600)
 scheduler = AsyncIOScheduler()  
-
 
 @app.get("/api/presigned-url")
 async def get_presigned_url(bucketName: str, fileName: str, redis=Depends(get_redis), minio_client=Depends(get_minio_client)):
